@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TeenTalk Dictionary: everyday Kazakh, Russian and English code-switching among Kazakhstani teenagers.">
+<title>TeenTalk Dictionary | Three Languages, One Communication</title>
+<style>
+  :root {
+    --bg: #f6f5ef;
+    --paper: #ffffff;
+    --ink: #202820;
+    --muted: #667067;
+    --green: #315c46;
+    --green-dark: #234332;
+    --mint: #e5eee5;
+    --line: #dfe5dc;
+    --gold: #e8c66a;
+    --shadow: 0 12px 35px rgba(28, 47, 34, .08);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif; line-height: 1.55;
+  }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  a { color: inherit; }
+  .wrap { width: min(1120px, calc(100% - 36px)); margin: 0 auto; }
+  header {
+    background: rgba(246,245,239,.94); border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+  }
+  .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; letter-spacing: -.4px; }
+  .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; background: var(--green); color: white; font-size: 20px; }
+  .nav-links { display: flex; flex-wrap: wrap; gap: 6px; }
+  .nav-links button {
+    border: 0; background: transparent; padding: 10px 12px; border-radius: 10px;
+    color: var(--muted); font-weight: 700;
+  }
+  .nav-links button:hover, .nav-links button.active { background: var(--mint); color: var(--green-dark); }
+  .hero { padding: 72px 0 45px; }
+  .hero-grid { display: grid; grid-template-columns: 1.35fr .85fr; gap: 40px; align-items: center; }
+  .eyebrow { color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+  h1 { font-size: clamp(42px, 6.5vw, 76px); line-height: .98; letter-spacing: -3px; margin: 16px 0 22px; }
+  h1 span { color: var(--green); }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 650px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .btn { border: 1px solid var(--green); padding: 12px 18px; border-radius: 12px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn.primary { color: white; background: var(--green); }
+  .btn.primary:hover { background: var(--green-dark); }
+  .btn.secondary { color: var(--green); background: transparent; }
+  .hero-card { background: var(--green); color: white; padding: 28px; border-radius: 26px; box-shadow: var(--shadow); transform: rotate(1deg); }
+  .hero-card .mini-label { color: #c8ddc9; text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 800; }
+  .hero-card h2 { font-size: 30px; line-height: 1.1; margin: 12px 0; }
+  .sample-line { background: rgba(255,255,255,.1); padding: 12px 14px; border-radius: 12px; margin-top: 10px; }
+  .sample-line small { display: block; color: #c8ddc9; font-size: 11px; margin-bottom: 3px; }
+  .hero-card .tag { display: inline-block; background: var(--gold); color: #25382b; font-size: 11px; font-weight: 800; border-radius: 100px; padding: 5px 9px; margin-top: 16px; }
+  .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; padding: 10px 0 48px; }
+  .stat { background: var(--paper); border: 1px solid var(--line); padding: 18px; border-radius: 16px; }
+  .stat strong { display: block; color: var(--green); font-size: 26px; }
+  .stat span { color: var(--muted); font-size: 13px; }
+  section.content-section { padding: 38px 0 64px; }
+  .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+  h2.section-title { margin: 7px 0 0; font-size: clamp(28px, 4vw, 42px); letter-spacing: -1.5px; line-height: 1.1; }
+  .section-subtitle { color: var(--muted); max-width: 620px; margin: 10px 0 0; }
+  .search-box { display: flex; gap: 10px; align-items: center; background: white; border: 1px solid var(--line); padding: 7px 14px; border-radius: 14px; min-width: min(360px,100%); }
+  .search-box input { border: 0; outline: 0; width: 100%; padding: 7px 0; background: transparent; color: var(--ink); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+  .filter { background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 9px 13px; border-radius: 100px; font-weight: 700; }
+  .filter.active, .filter:hover { color: white; background: var(--green); border-color: var(--green); }
+  .dictionary-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 15px; }
+  .entry { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 19px; display: flex; flex-direction: column; min-height: 210px; transition: transform .18s, box-shadow .18s; }
+  .entry:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .entry-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .entry-number { color: #879188; font-size: 12px; font-weight: 800; }
+  .type-pill { background: var(--mint); color: var(--green-dark); border-radius: 100px; padding: 4px 8px; font-size: 10px; text-transform: uppercase; font-weight: 800; letter-spacing: .5px; }
+  .entry h3 { font-size: 21px; line-height: 1.2; margin: 15px 0 8px; }
+  .entry .example { margin: 0 0 10px; font-weight: 700; }
+  .entry .meaning { margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+  .entry .meaning b { color: var(--green-dark); }
+  .empty { display: none; padding: 30px; text-align: center; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .about-card { background: white; border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+  .about-card h3 { margin: 8px 0; font-size: 22px; }
+  .about-card p { color: var(--muted); margin-bottom: 0; }
+  .icon-box { width: 42px; height: 42px; display: grid; place-items: center; background: var(--mint); border-radius: 13px; color: var(--green); font-size: 20px; }
+  .note { background: #fff8e3; border: 1px solid #f0dfaa; color: #655324; border-radius: 14px; padding: 15px 17px; font-size: 13px; margin-top: 20px; }
+  footer { background: #203c2c; color: white; padding: 30px 0; }
+  .footer-inner { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+  footer p { margin: 3px 0; color: #c5d6c8; font-size: 13px; }
+  .back-top { border: 1px solid #6b8a74; background: transparent; color: white; border-radius: 10px; padding: 9px 12px; }
+  @media (max-width: 800px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-card { max-width: 500px; transform: none; }
+    .dictionary-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .section-heading { align-items: start; flex-direction: column; }
+    .search-box { width: 100%; }
+  }
+  @media (max-width: 540px) {
+    .wrap { width: min(100% - 24px,1120px); }
+    .nav { padding: 12px 0; align-items: flex-start; flex-direction: column; gap: 10px; }
+    .nav-links { width: 100%; }
+    .nav-links button { padding: 8px 9px; font-size: 12px; }
+    .hero { padding-top: 48px; }
+    h1 { letter-spacing: -2px; }
+    .stats { gap: 8px; }
+    .stat { padding: 12px; }
+    .stat strong { font-size: 22px; }
+    .stat span { font-size: 11px; }
+    .dictionary-grid, .about-grid { grid-template-columns: 1fr; }
+    .entry { min-height: 180px; }
+    .footer-inner { align-items: flex-start; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="TeenTalk Dictionary home">
+      <span class="brand-mark">T³</span><span>TeenTalk Dictionary</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <button class="active" data-page="home">Home</button>
+      <button data-page="words">Words</button>
+      <button data-page="phrases">Phrases</button>
+      <button data-page="sentences">Sentences</button>
+      <button data-page="about">About</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div id="home">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Kazakh · Russian · English</div>
+          <h1>Three languages.<br><span>One communication.</span></h1>
+          <p>Welcome to TeenTalk Dictionary — a guide to the words, phrases and sentences Kazakhstani teenagers may use when switching between languages in everyday life.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#dictionary" onclick="setCategory('all')">Explore dictionary <span>↗</span></a>
+            <a class="btn secondary" href="#about">About the project</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <div class="mini-label">Everyday code-switching</div>
+          <h2>One thought.<br>Three languages.</h2>
+          <div class="sample-line"><small>WORD-LEVEL</small>«Я забыла homework»</div>
+          <div class="sample-line"><small>PHRASE-LEVEL</small>«Всё, let's go!»</div>
+          <div class="sample-line"><small>SENTENCE-LEVEL</small>«Мен шаршадым. I need some rest.»</div>
+          <span class="tag">LANGUAGE IN REAL LIFE</span>
+        </aside>
+      </div>
+    </section>
+    <div class="wrap stats">
+      <div class="stat"><strong>100</strong><span>dictionary examples</span></div>
+      <div class="stat"><strong>3</strong><span>switching categories</span></div>
+      <div class="stat"><strong>1</strong><span>multilingual community</span></div>
+    </div>
+  </div>
+
+  <section class="content-section" id="dictionary">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Explore the collection</div>
+          <h2 class="section-title">The dictionary</h2>
+          <p class="section-subtitle">Search everyday expressions or choose a category. Each card includes an example and its meaning.</p>
+        </div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search a word or expression..." aria-label="Search dictionary"></label>
+      </div>
+      <div class="filters" role="group" aria-label="Filter dictionary entries">
+        <button class="filter active" data-filter="all">All examples</button>
+        <button class="filter" data-filter="word">Word-level</button>
+        <button class="filter" data-filter="phrase">Phrase-level</button>
+        <button class="filter" data-filter="sentence">Sentence-level</button>
+      </div>
+      <div id="dictionaryGrid" class="dictionary-grid"></div>
+      <div id="empty" class="empty">No matches found. Try another search.</div>
+      <div class="note">Research note: these are illustrative sample entries. If you use this website for a research project, collect and verify examples from your own anonymous teen survey before describing them as research findings.</div>
+    </div>
+  </section>
+
+  <section class="content-section" id="about">
+    <div class="wrap">
+      <div class="eyebrow">About the project</div>
+      <h2 class="section-title">Why do we switch languages?</h2>
+      <p class="section-subtitle" style="margin-bottom:24px">Code-switching happens when a speaker alternates between two or more languages during a conversation or utterance.</p>
+      <div class="about-grid">
+        <article class="about-card"><div class="icon-box">↔</div><h3>What is code-switching?</h3><p>Code-switching is the use of more than one language in the same conversation. Speakers may switch languages to express an idea, react naturally, or communicate with friends.</p></article>
+        <article class="about-card"><div class="icon-box">Aa</div><h3>Word-level switching</h3><p>A word from another language is inserted into a sentence, for example: “Я забыла homework.”</p></article>
+        <article class="about-card"><div class="icon-box">“ ”</div><h3>Phrase-level switching</h3><p>A phrase from another language appears within a conversation, for example: “Всё, let's go!”</p></article>
+        <article class="about-card"><div class="icon-box">¶</div><h3>Sentence-level switching</h3><p>The speaker changes language between clauses or sentences, for example: “Мен шаршадым. I need some rest.”</p></article>
+      </div>
+      <div class="note">The examples on this site are for learning and demonstration. The frequency and form of code-switching can vary by person, context and region. Use your own survey results to make evidence-based claims.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div><strong>TeenTalk Dictionary</strong><p>Three Languages, One Communication</p><p>A student research project about code-switching among Kazakhstani teenagers.</p></div>
+    <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top ↑</button>
+  </div>
+</footer>
+
+<script>
+const entries = [
+  // 1–40: word-level
+  {n:1,type:"word",title:"homework",example:"Я забыла homework.",meaning:"Домашнее задание"},
+  {n:2,type:"word",title:"project",example:"Нам нужно закончить project.",meaning:"Проект"},
+  {n:3,type:"word",title:"file",example:"Скинь мне file.",meaning:"Файл"},
+  {n:4,type:"word",title:"deadline",example:"Какой у нас deadline?",meaning:"Крайний срок"},
+  {n:5,type:"word",title:"test",example:"Завтра у нас test.",meaning:"Контрольная работа / тест"},
+  {n:6,type:"word",title:"lesson",example:"Сегодня первый lesson.",meaning:"Урок"},
+  {n:7,type:"word",title:"break",example:"Когда будет break?",meaning:"Перемена / перерыв"},
+  {n:8,type:"word",title:"teacher",example:"Наш teacher сегодня отсутствует.",meaning:"Учитель"},
+  {n:9,type:"word",title:"presentation",example:"Я ещё не закончила presentation.",meaning:"Презентация"},
+  {n:10,type:"word",title:"topic",example:"Какая у нас topic?",meaning:"Тема"},
+  {n:11,type:"word",title:"notebook",example:"Я забыла notebook дома.",meaning:"Тетрадь"},
+  {n:12,type:"word",title:"laptop",example:"Можно взять твой laptop?",meaning:"Ноутбук"},
+  {n:13,type:"word",title:"screenshot",example:"Отправь screenshot.",meaning:"Снимок экрана"},
+  {n:14,type:"word",title:"link",example:"Скинь link в чат.",meaning:"Ссылка"},
+  {n:15,type:"word",title:"password",example:"Я забыла password.",meaning:"Пароль"},
+  {n:16,type:"word",title:"update",example:"Нужно сделать update приложения.",meaning:"Обновление"},
+  {n:17,type:"word",title:"download",example:"Помоги download этот файл.",meaning:"Скачать"},
+  {n:18,type:"word",title:"online",example:"Ты сегодня online?",meaning:"В сети"},
+  {n:19,type:"word",title:"offline",example:"Я буду offline вечером.",meaning:"Не в сети"},
+  {n:20,type:"word",title:"message",example:"Я получила твоё message.",meaning:"Сообщение"},
+  {n:21,type:"word",title:"chat",example:"Напиши мне в chat.",meaning:"Чат"},
+  {n:22,type:"word",title:"story",example:"Ты видела мою story?",meaning:"История в соцсети"},
+  {n:23,type:"word",title:"post",example:"Я выложила новый post.",meaning:"Публикация"},
+  {n:24,type:"word",title:"reel",example:"Посмотри этот reel.",meaning:"Короткое видео"},
+  {n:25,type:"word",title:"like",example:"Поставь like на фото.",meaning:"Отметка «нравится»"},
+  {n:26,type:"word",title:"follow",example:"Я буду follow её аккаунт.",meaning:"Подписаться / следить"},
+  {n:27,type:"word",title:"trend",example:"Этот trend уже старый.",meaning:"Тренд"},
+  {n:28,type:"word",title:"content",example:"У неё интересный content.",meaning:"Контент"},
+  {n:29,type:"word",title:"aesthetic",example:"У этого места красивая aesthetic.",meaning:"Эстетика / визуальный стиль"},
+  {n:30,type:"word",title:"outfit",example:"Как тебе мой outfit?",meaning:"Образ / наряд"},
+  {n:31,type:"word",title:"style",example:"Мне нравится её style.",meaning:"Стиль"},
+  {n:32,type:"word",title:"mood",example:"У меня сегодня плохой mood.",meaning:"Настроение"},
+  {n:33,type:"word",title:"vibe",example:"У этого кафе хороший vibe.",meaning:"Атмосфера"},
+  {n:34,type:"word",title:"cringe",example:"Это так cringe!",meaning:"Неловко / стыдно"},
+  {n:35,type:"word",title:"random",example:"Это было очень random.",meaning:"Случайный / неожиданный"},
+  {n:36,type:"word",title:"cute",example:"Какой cute котёнок!",meaning:"Милый"},
+  {n:37,type:"word",title:"literally",example:"Я literally ничего не поняла.",meaning:"Буквально"},
+  {n:38,type:"word",title:"actually",example:"Actually, я уже это видела.",meaning:"Вообще-то / на самом деле"},
+  {n:39,type:"word",title:"busy",example:"Я сейчас busy.",meaning:"Занят / занята"},
+  {n:40,type:"word",title:"ready",example:"Ты ready?",meaning:"Готов / готова"},
+  // 41–70: phrase-level
+  {n:41,type:"phrase",title:"Let's go!",example:"Всё, let's go!",meaning:"Пошли! / Поехали!"},
+  {n:42,type:"phrase",title:"I don't know",example:"I don't know, что делать.",meaning:"Я не знаю"},
+  {n:43,type:"phrase",title:"Never mind",example:"Never mind, уже неважно.",meaning:"Забудь / неважно"},
+  {n:44,type:"phrase",title:"By the way",example:"By the way, ты сделала домашку?",meaning:"Кстати"},
+  {n:45,type:"phrase",title:"To be honest",example:"To be honest, мне не понравилось.",meaning:"Честно говоря"},
+  {n:46,type:"phrase",title:"I think so",example:"I think so, но не уверена.",meaning:"Думаю, да"},
+  {n:47,type:"phrase",title:"No problem",example:"No problem, я помогу.",meaning:"Без проблем"},
+  {n:48,type:"phrase",title:"Of course",example:"Of course, я приду.",meaning:"Конечно"},
+  {n:49,type:"phrase",title:"I'm serious",example:"I'm serious, это правда.",meaning:"Я серьёзно"},
+  {n:50,type:"phrase",title:"Are you sure?",example:"Are you sure, что это правильно?",meaning:"Ты уверена / уверен?"},
+  {n:51,type:"phrase",title:"It depends",example:"It depends от ситуации.",meaning:"Зависит от ситуации"},
+  {n:52,type:"phrase",title:"Good luck",example:"Good luck на контрольной!",meaning:"Удачи"},
+  {n:53,type:"phrase",title:"See you later",example:"Всё, see you later!",meaning:"Увидимся позже"},
+  {n:54,type:"phrase",title:"Take your time",example:"Take your time, я подожду.",meaning:"Не торопись"},
+  {n:55,type:"phrase",title:"I agree",example:"I agree с тобой.",meaning:"Я согласен / согласна"},
+  {n:56,type:"phrase",title:"That's true",example:"That's true, я тоже так думаю.",meaning:"Это правда"},
+  {n:57,type:"phrase",title:"My bad",example:"My bad, я забыла.",meaning:"Моя ошибка / виноват(а)"},
+  {n:58,type:"phrase",title:"It makes sense",example:"It makes sense, теперь понятно.",meaning:"В этом есть смысл"},
+  {n:59,type:"phrase",title:"I feel like",example:"I feel like, что сегодня будет дождь.",meaning:"Мне кажется"},
+  {n:60,type:"phrase",title:"As always",example:"As always, ты опоздала.",meaning:"Как всегда"},
+  {n:61,type:"phrase",title:"What's going on?",example:"What's going on, почему все молчат?",meaning:"Что происходит?"},
+  {n:62,type:"phrase",title:"I'm on my way",example:"I'm on my way, скоро буду.",meaning:"Я уже в пути"},
+  {n:63,type:"phrase",title:"Sounds good",example:"Sounds good, договорились.",meaning:"Звучит хорошо / подходит"},
+  {n:64,type:"phrase",title:"I have no idea",example:"I have no idea, где он.",meaning:"Я понятия не имею"},
+  {n:65,type:"phrase",title:"Don't worry",example:"Don't worry, всё будет нормально.",meaning:"Не переживай"},
+  {n:66,type:"phrase",title:"That's crazy",example:"That's crazy, ты серьёзно?",meaning:"Вот это да / невероятно"},
+  {n:67,type:"phrase",title:"I can't believe it",example:"I can't believe it, ты выиграла!",meaning:"Не могу в это поверить"},
+  {n:68,type:"phrase",title:"I'm so tired",example:"I'm so tired после школы.",meaning:"Я так устал(а)"},
+  {n:69,type:"phrase",title:"What do you mean?",example:"What do you mean, ты не придёшь?",meaning:"Что ты имеешь в виду?"},
+  {n:70,type:"phrase",title:"Just kidding",example:"Just kidding, не обижайся.",meaning:"Я просто шучу"},
+  // 71–100: sentence-level
+  {n:71,type:"sentence",title:"Too much homework",example:"Я сегодня не пойду гулять. I have too much homework.",meaning:"Я сегодня не пойду гулять. У меня слишком много домашней работы."},
+  {n:72,type:"sentence",title:"A good mark",example:"Мен сабаққа дайындалдым. I hope I get a good mark.",meaning:"Я подготовилась к уроку. Надеюсь, получу хорошую оценку."},
+  {n:73,type:"sentence",title:"Explain it to me",example:"Я не поняла задание. Can you explain it to me?",meaning:"Я не поняла задание. Можешь мне объяснить?"},
+  {n:74,type:"sentence",title:"Let's go for a walk",example:"Бүгін ауа райы жақсы. Let's go for a walk.",meaning:"Сегодня хорошая погода. Давай погуляем."},
+  {n:75,type:"sentence",title:"Phone battery",example:"Я забыла зарядку дома. My phone is almost dead.",meaning:"Я забыла зарядку дома. Телефон почти разрядился."},
+  {n:76,type:"sentence",title:"I need to sleep",example:"Мен бүгін шаршадым. I just want to sleep.",meaning:"Я сегодня устала. Я просто хочу спать."},
+  {n:77,type:"sentence",title:"Can't find it",example:"Ты видела мой телефон? I can't find it anywhere.",meaning:"Ты видела мой телефон? Я нигде не могу его найти."},
+  {n:78,type:"sentence",title:"Study tonight",example:"Ертең бақылау жұмысы бар. I need to study tonight.",meaning:"Завтра контрольная. Мне нужно заниматься сегодня вечером."},
+  {n:79,type:"sentence",title:"Check your messages",example:"Я уже отправила тебе файл. Check your messages.",meaning:"Я уже отправила тебе файл. Проверь сообщения."},
+  {n:80,type:"sentence",title:"I'll wait outside",example:"Сабақ сағат үште бітеді. I'll wait for you outside.",meaning:"Урок заканчивается в три. Я подожду тебя снаружи."},
+  {n:81,type:"sentence",title:"Let's leave now",example:"Я не хочу опаздывать. Let's leave now.",meaning:"Я не хочу опаздывать. Давай выйдем сейчас."},
+  {n:82,type:"sentence",title:"A new teacher",example:"Бүгін мектепте қызық болды. We had a new teacher.",meaning:"Сегодня в школе было интересно. У нас был новый учитель."},
+  {n:83,type:"sentence",title:"A good film",example:"Я посмотрела этот фильм. It was actually really good.",meaning:"Я посмотрела этот фильм. Он на самом деле был очень хорошим."},
+  {n:84,type:"sentence",title:"Have you done your homework?",example:"Сен үй тапсырмасын орындадың ба? I haven't finished mine yet.",meaning:"Ты сделала домашнюю работу? Я ещё не закончила свою."},
+  {n:85,type:"sentence",title:"Time alone",example:"Я сегодня не в настроении. I need some time alone.",meaning:"Я сегодня не в настроении. Мне нужно побыть одной."},
+  {n:86,type:"sentence",title:"I'll text you later",example:"Мен саған кейін жазамын. I'm busy right now.",meaning:"Я напишу тебе позже. Я сейчас занята."},
+  {n:87,type:"sentence",title:"What should I wear?",example:"Я не знаю, что надеть. Can you help me choose?",meaning:"Я не знаю, что надеть. Поможешь выбрать?"},
+  {n:88,type:"sentence",title:"Glad it's over",example:"Бүгін бәрі жақсы өтті. I'm glad it's over.",meaning:"Сегодня всё прошло хорошо. Я рада, что всё закончилось."},
+  {n:89,type:"sentence",title:"Finish it today",example:"Я забыла про дедлайн. I'll try to finish it today.",meaning:"Я забыла про крайний срок. Постараюсь закончить сегодня."},
+  {n:90,type:"sentence",title:"Be proud of yourself",example:"Сен өте жақсы орындадың. You should be proud of yourself.",meaning:"Ты очень хорошо справилась. Ты должна собой гордиться."},
+  {n:91,type:"sentence",title:"Let me know",example:"Я уже дома. Let me know when you arrive.",meaning:"Я уже дома. Напиши, когда приедешь."},
+  {n:92,type:"sentence",title:"I'll text the details",example:"Біз ертең кездесеміз. I'll text you the details.",meaning:"Мы встретимся завтра. Я напишу тебе подробности."},
+  {n:93,type:"sentence",title:"Sorry for the late reply",example:"Я не видела это сообщение. Sorry for the late reply.",meaning:"Я не видела это сообщение. Извини за поздний ответ."},
+  {n:94,type:"sentence",title:"It reminds me of summer",example:"Маған бұл ән ұнайды. It reminds me of summer.",meaning:"Мне нравится эта песня. Она напоминает мне о лете."},
+  {n:95,type:"sentence",title:"Let's check together",example:"Я не уверена в ответе. Let's check it together.",meaning:"Я не уверена в ответе. Давай проверим вместе."},
+  {n:96,type:"sentence",title:"Everything is going well",example:"Бүгін көңіл-күйім жақсы. Everything is going well.",meaning:"Сегодня у меня хорошее настроение. Всё идёт хорошо."},
+  {n:97,type:"sentence",title:"Try something new",example:"Я хочу попробовать что-то новое. It could be fun.",meaning:"Я хочу попробовать что-то новое. Это может быть весело."},
+  {n:98,type:"sentence",title:"I love your outfit",example:"Сен бүгін керемет көрінесің. I love your outfit.",meaning:"Ты сегодня отлично выглядишь. Мне нравится твой образ."},
+  {n:99,type:"sentence",title:"We still have class",example:"Я думала, что урок отменили. Apparently, we still have class.",meaning:"Я думала, урок отменили. Оказывается, занятия всё ещё будут."},
+  {n:100,type:"sentence",title:"Start our presentation",example:"Бәрі дайын. Let's start our presentation.",meaning:"Всё готово. Давайте начнём нашу презентацию."}
+];
+
+const labels = {word:"Word-level", phrase:"Phrase-level", sentence:"Sentence-level"};
+let currentFilter = "all";
+const grid = document.getElementById("dictionaryGrid");
+const search = document.getElementById("search");
+const empty = document.getElementById("empty");
+
+function renderEntries() {
+  const q = search.value.trim().toLowerCase();
+  const filtered = entries.filter(item => {
+    const matchesType = currentFilter === "all" || item.type === currentFilter;
+    const haystack = `${item.title} ${item.example} ${item.meaning} ${labels[item.type]}`.toLowerCase();
+    return matchesType && haystack.includes(q);
+  });
+  grid.innerHTML = filtered.map(item => `
+    <article class="entry">
+      <div class="entry-top"><span class="entry-number">#${String(item.n).padStart(3,"0")}</span><span class="type-pill">${labels[item.type]}</span></div>
+      <h3>${escapeHTML(item.title)}</h3>
+      <p class="example">${escapeHTML(item.example)}</p>
+      <p class="meaning"><b>Meaning:</b> ${escapeHTML(item.meaning)}</p>
+    </article>`).join("");
+  empty.style.display = filtered.length ? "none" : "block";
+}
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+}
+function setCategory(category) {
+  currentFilter = category;
+  document.querySelectorAll(".filter").forEach(btn => btn.classList.toggle("active", btn.dataset.filter === category));
+  renderEntries();
+}
+document.querySelectorAll(".filter").forEach(btn => btn.addEventListener("click", () => setCategory(btn.dataset.filter)));
+search.addEventListener("input", renderEntries);
+document.querySelectorAll("[data-page]").forEach(btn => btn.addEventListener("click", () => {
+  document.querySelectorAll("[data-page]").forEach(b => b.classList.toggle("active", b === btn));
+  const page = btn.dataset.page;
+  if (page === "home") window.scrollTo({top:0,behavior:"smooth"});
+  else if (page === "about") document.getElementById("about").scrollIntoView({behavior:"smooth"});
+  else {
+    document.getElementById("dictionary").scrollIntoView({behavior:"smooth"});
+    setCategory(page === "words" ? "word" : page === "phrases" ? "phrase" : "sentence");
+  }
+}));
+renderEntries();
+</script>
+</body>
+</html>
